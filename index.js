@@ -30,4 +30,45 @@ Object.defineProperty(people,'name',{
 people.name='Oleh';
 console.log(people.name);//sasha
 console.log(people.propertyIsEnumerable('name'));//true
-console.log(Object.keys(people));//['name',19,'NU LP']
+console.log(Object.keys(people));//['name',19,'NU LP'];
+
+
+function sayName(label){
+  console.log(label + this.name)
+}
+
+let person = {
+  name:"Olya",
+  age:19
+}
+
+// let descriptor = Object.getOwnPropertyDescriptor(person,'name');
+// console.log(descriptor.enumerable)
+// console.log(descriptor.writable)
+// console.log(descriptor.configurable)
+
+// console.log(Object.isExtensible(person));//true
+// //Object.preventExtensions(person); // неможна додавати в обєкт властивості але можна їх видаляти з нього
+// person.sayName = this.name;
+// //delete person.name ;
+// console.log('sayName' in person);//false
+// console.log('name' in person)//false
+
+// Object.seal(person);//тепер в цей обєкт не можна ні додати ні видалити значення з нього
+// delete person.name;
+// console.log('name' in person)//true
+// console.log(Object.isSealed(person))//true
+
+console.log(Object.isFrozen(person))//false;
+Object.freeze(person);
+person.sayName = this.name;
+console.log('sayName' in person);
+delete person.name;
+console.log('name' in person);
+person.name = 'Sasha';
+console.log(person.name);//Olya
+
+var descriptor = Object.getOwnPropertyDescriptor(person, "name");
+console.log(descriptor.configurable); // false
+console.log(descriptor.writable); //false
+
